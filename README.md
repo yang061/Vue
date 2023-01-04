@@ -2165,3 +2165,140 @@ Vue监视数据的原理：
 > Vue.set() 和 vm.$set() 不能给vm 或 vm的根数据对象（data和_data） 添加属性！！！
 >
 > 例:Vue.set(this,…,…)或this.$set(this,…,…)
+
+
+#### 1.15 v-model双向绑定(收集表单数据)
+
+* 若：`<input type="text"/>`，则`v-model`收集的是`value`值，用户输入的就是`value值`。
+
+  > `number`和` v-model.number`一起使用
+
+```html
+<!-- 准备好一个容器-->
+<div id="root">
+    <form @submit.prevent="demo">
+        账号：<input type="text" v-model.trim="userInfo.account"> <br/><br/>
+        密码：<input type="password" v-model="userInfo.password"> <br/><br/>
+        年龄：<input type="number" v-model.number="userInfo.age"> <br/><br/>
+        <button>提交</button>
+    </form>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    new Vue({
+        el:'#root',
+        data:{
+            userInfo:{
+                account:'',
+                password:'',
+                age:18,
+            }
+        },
+        methods: {
+            demo(){
+                console.log(JSON.stringify(this.userInfo))
+            }
+        }
+    })
+</script>
+
+```
+
+* 若：`<input type="radio"/>`，则`v-model`收集的是`value`值，且要给标签【配置】`value`值。
+
+```html
+<!-- 准备好一个容器-->
+<div id="root">
+    <form @submit.prevent="demo">
+        性别：
+        男<input type="radio" name="sex" v-model="userInfo.sex" value="male">
+        女<input type="radio" name="sex" v-model="userInfo.sex" value="female">
+    </form>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    new Vue({
+        el:'#root',
+        data:{
+            userInfo:{
+                sex:'female'
+            }
+        },
+        methods: {
+            demo(){
+                console.log(JSON.stringify(this.userInfo))
+            }
+        }
+    })
+</script>
+```
+
+* 若：`<input type="checkbox"/>`
+  1. 【没有】配置input的value属性，那么收集的就是`checked`（勾选 or 未勾选，是布尔值）
+  2. 【配置】input的value属性:
+     * v-model的初始值是`非数组`，那么收集的就是`checked`（勾选 or 未勾选，是布尔值）
+     * v-model的初始值是`数组`，那么收集的的就是`value`组成的数组
+
+```html
+<!-- 准备好一个容器-->
+<div id="root">
+    <form @submit.prevent="demo">
+        爱好：
+        学习<input type="checkbox" v-model="userInfo.hobby" value="study">
+        打游戏<input type="checkbox" v-model="userInfo.hobby" value="game">
+        吃饭<input type="checkbox" v-model="userInfo.hobby" value="eat">
+        <br/><br/>
+        所属校区
+        <select v-model="userInfo.city">
+            <option value="">请选择校区</option>
+            <option value="beijing">北京</option>
+            <option value="shanghai">上海</option>
+            <option value="shenzhen">深圳</option>
+            <option value="wuhan">武汉</option>
+        </select>
+        <br/><br/>
+        其他信息：
+        <textarea v-model.lazy="userInfo.other"></textarea> <br/><br/>
+        <input type="checkbox" v-model="userInfo.agree">阅读并接受<a href="http://www.atguigu.com">《用户协议》</a>
+        <button>提交</button>
+    </form>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    new Vue({
+        el:'#root',
+        data:{
+            userInfo:{
+                hobby:[],
+                city:'beijing',
+                other:'',
+                agree:''
+            }
+        },
+        methods: {
+            demo(){
+                console.log(JSON.stringify(this.userInfo))
+            }
+        }
+    })
+</script>
+```
+
+![](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E6%94%B6%E9%9B%86%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE.png)
+
+* 备注
+
+> v-model的三个修饰符：
+>
+> * lazy：失去焦点再收集数据
+> * number：输入字符串转为有效的数字
+> * trim：输入首尾空格过滤
+>
+> 例：`v-model.number=“phone” `就算是number类型的input框，`vue`收集的还是字符串，可以使用这个修饰符
+
