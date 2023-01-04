@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      姓: <input type="text" v-model="firstName" /> <br />
+      名: <input type="text" v-model="lastName" /> <br />
+      全名：<span>{{fullName()}}</span>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false //阻止vue在启动时生成生产提示
+    new Vue({
+      el: '#root',
+      data: {
+        firstName: '张',
+        lastName: '三',
+      },
+      methods: {
+        fullName() {
+          // 只要data的数据发生改变，vue就会重新解析模板，重新解析模板时只要遇到了插值语法里面的方法，该方法一定会重新调用的
+          console.log('@---fullName')
+          return this.firstName + '-' + this.lastName
+        },
+      },
+    })
+  </script>
+</html>

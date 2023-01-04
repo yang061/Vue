@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>姓名案例_watch实现</title>
+    <script src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      姓: <input type="text" v-model="firstName" /> <br />
+      名: <input type="text" v-model="lastName" /> <br />
+      全名：<span>{{fullName}}</span>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false //阻止vue在启动时生成生产提示
+    const vm = new Vue({
+      el: '#root',
+      // vue认为data里面的数据都是属性
+      data: {
+        firstName: '张',
+        lastName: '三',
+        fullName: '张-三',
+      },
+
+      watch: {
+        firstName(val) {
+          // setTimeout 不是vue管理的函数，由js引擎管理(调用的)
+          setTimeout(() => {
+            console.log(this) //vm
+            this.fullName = val + '-' + this.lastName
+          }, 1000)
+        },
+        lastName(val) {
+          this.fullName = this.firstName + '-' + val
+        },
+      },
+    })
+  </script>
+</html>
