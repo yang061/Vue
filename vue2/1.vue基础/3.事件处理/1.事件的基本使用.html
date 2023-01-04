@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <h2>欢迎来到{{name}}学习</h2>
+      <!-- <button v-on:click="showInfo">点我提示信息</button> -->
+      <button @click="showInfo1">点我提示信息1(不传参)</button>
+      <button @click="showInfo2(666,$event)">点我提示信息2(传参)</button>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+      Vue.config.productionTip = false
+      new Vue({
+        el: '#root',
+        data: {
+          //data里面的数据才会数据代理
+          name: '尚硅谷',
+        },
+        methods: {
+          //对象里面配方法
+          showInfo1(event) {
+            // alert('同学你好1')
+            console.log(event.target.innerText)
+            // console.log(this) //此处的this的vm
+          },
+          showInfo2(number, e) {
+            console.log(number, e)
+            // alert('同学你好11')
+            // console.log(event.target.innerText)
+            // console.log(this) //此处的this的vm
+          },
+        },
+      })
+    </script>
+  </body>
+</html>

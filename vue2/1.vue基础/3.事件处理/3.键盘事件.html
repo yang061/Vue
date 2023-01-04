@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <h2>欢迎来到{{name}}学习</h2>
+      <input
+        type="text"
+        placeholder="按下回车键提示输入"
+        @keyup.ctrl="showInfo"
+      />
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+      Vue.config.productionTip = false
+      new Vue({
+        el: '#root',
+        data: {
+          //data里面的数据才会数据代理
+          name: '尚硅谷',
+        },
+        methods: {
+          showInfo(e) {
+            console.log(e.target.value)
+            // console.log(e.key, e.keyCode)
+          },
+        },
+      })
+    </script>
+  </body>
+</html>
