@@ -29,7 +29,7 @@
 3. 它本身只关注 UI，可以引入其它第三方库开发项目
 4. 采用==组件化==模式，提高代码复用率、且让代码更好维护
 
-![67247968774](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/2.4%20%E7%BB%84%E4%BB%B6%E5%8C%96%E6%A8%A1%E5%BC%8F)
+![67247968774](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/27ba2805b5db4277b7e3564e20f6ac80.png)
 
 5. ==声明式==编码，让编码人员无需直接操作DOM，提高开发效率
 
