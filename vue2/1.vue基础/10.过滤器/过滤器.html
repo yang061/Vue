@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/dayjs.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <h2>显示后的时间</h2>
+      <!-- 计算属性实现 -->
+      <h3>现在是：{{fmtTime}}</h3>
+      <!-- methods实现 -->
+      <h3>现在是：{{getFmtTime()}}</h3>
+      <!-- 过滤器实现    -->
+      <h3>现在是：{{time | timeFormater}}</h3>
+      <!-- 过滤器实现(传参)    -->
+      <h3>现在是：{{time | timeFormater('YYYY_MM_DD') | mySlice}}</h3>
+      <!-- 动态属性v-bind -->
+      <h3 :x="msg | mySplice"></h3>
+    </div>
+    <div id="root2">{{msg | mySlice}}</div>
+  </body>
+  <script>
+    Vue.config.productionTip = false //阻止vue在启动时生成生产提示
+    // 全局过滤器filter
+    Vue.filter('mySlice', function (value) {
+      return value.slice(0, 5) //截取前五位
+    })
+    new Vue({
+      el: '#root',
+      data: {
+        time: 1672834919884, //时间戳
+        msg: '你好,尚硅谷',
+      },
+      computed: {
+        fmtTime() {
+          return dayjs(this.time).format('YYYY年MM月DD日 HH:mm:ss') //传以传的参为主，不传以当前为主
+        },
+      },
+      methods: {
+        getFmtTime() {
+          return dayjs(this.time).format('YYYY年MM月DD日 HH:mm:ss')
+        },
+      },
+      // 局部过滤器filters
+      filters: {
+        // 过滤器的返回值会显示在{{time | timeFormater}}
+        timeFormater(value, str = 'YYYY年MM月DD日 HH:mm:ss') {
+          // console.log('@', value)
+          return dayjs(value).format(str)
+        },
+      },
+    })
+    new Vue({
+      el: '#root2',
+      data: {
+        msg: 'asdfghjjk',
+      },
+    })
+  </script>
+</html>
