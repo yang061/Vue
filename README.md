@@ -29,17 +29,17 @@
 3. 它本身只关注 UI，可以引入其它第三方库开发项目
 4. 采用==组件化==模式，提高代码复用率、且让代码更好维护
 
-![67247968774](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E7%9B%91%E8%A7%86%E6%95%B0%E7%BB%841.png)
+![67247968774](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/2.4%20%E7%BB%84%E4%BB%B6%E5%8C%96%E6%A8%A1%E5%BC%8F)
 
 5. ==声明式==编码，让编码人员无需直接操作DOM，提高开发效率
 
-![67247944158](C:\Users\15943\Desktop\前端\vue\图片\2.5声明式编码)
+![67247944158](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/2.5%E5%A3%B0%E6%98%8E%E5%BC%8F%E7%BC%96%E7%A0%81)
 
 6. 使用虚拟DOM 和 Diff算法，尽量复用DOM节点
 
-![67247987614](C:\Users\15943\Desktop\前端\vue\图片\2.6 虚拟dom和dis)
+![67247987614](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/2.6%20%E8%99%9A%E6%8B%9Fdom%E5%92%8Cdis)
 
-![67248012143](C:\Users\15943\Desktop\前端\vue\图片\2.6 虚拟dom和diff)
+![67248012143](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/2.6%20%E8%99%9A%E6%8B%9Fdom%E5%92%8Cdiff)
 
 ##### 1.1.4. 与其它 JS 框架的关联
 
@@ -461,7 +461,7 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
    * 为每一个添加到vm上的属性，都指定一个 `getter`,`setter`
    * 在`getter`,`setter`内部去操作（读/写）data中对应的属性
 
-![image-20220627120432752](C:\Users\15943\Desktop\前端\vue\图片\数据代理)
+![image-20220627120432752](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E6%95%B0%E6%8D%AE%E4%BB%A3%E7%90%86)
 
 4.解读
 
@@ -527,7 +527,7 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 5. `self` 只有`event.target`是当前操作的元素时才触发事件
 6. `passive` 事件的默认行为立即执行，无需等待事件回调执行完毕
 
-* 修饰符可以==连续写==，比如可以这么用：`@click.prevent.stop="showInfo"`
+* 修饰符可以【连续写】，比如可以这么用：`@click.prevent.stop="showInfo"`
 
 ```html
 <!DOCTYPE html>
@@ -636,7 +636,7 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 > 键盘上的每个按键都有自己的==名称==和==编码==，例如：Enter（13）。而Vue还对一些常用按键起了别名方便使用
 
-1. Vue中常用的按键==别名==
+1. Vue中常用的按键【别名】
 
 * 回车=>`enter`
 * 删除=>`delete`(捕获“删除(==DELETE==)”和“退格(==BACKSPACE==)”键)
@@ -1538,14 +1538,14 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 * (1).`key`是虚拟DOM对象的标识，当数据发生变化时，Vue会根据==【新数据】==生成==【新的虚拟DOM】==
 
-*  (2).随后Vue进行==【新虚拟DOM】==与==【旧虚拟DOM】==的差异比较，比较规则如下：
+*  (2).随后Vue进行【新虚拟DOM】与【旧虚拟DOM】的差异比较，比较规则如下：
 
 
 2. 对比规则：
 * (1).旧虚拟DOM中**找到了**与新虚拟DOM相同的`key`：
 
-  * ①.若虚拟DOM中==内容没变==, 直接使用之前的真实DOM！(复用)
-  * ②.若虚拟DOM中==内容变了==, 则生成新的真实DOM，随后==替换掉==页面中之前的真实DOM。
+  * ①.若虚拟DOM中【内容没变】, 直接使用之前的真实DOM！(复用)
+  * ②.若虚拟DOM中【内容变了】, 则生成新的真实DOM，随后【替换掉】页面中之前的真实DOM。
 
 *   (2).旧虚拟DOM中**未找到**与新虚拟DOM相同的`key`
 
@@ -1620,11 +1620,11 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 > index作为key
 
-![67273734678](C:\Users\15943\Desktop\前端\vue\图片\1.13.2 key作用与原理)
+![67273734678](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/1.13.2%20key%E4%BD%9C%E7%94%A8%E4%B8%8E%E5%8E%9F%E7%90%86)
 
 > id作为key
 
-![67273756803](C:\Users\15943\Desktop\前端\vue\图片\id作为key)
+![67273756803](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/id%E4%BD%9C%E4%B8%BAkey)
 
 ##### 1.13.3 列表过滤
 
@@ -1752,7 +1752,7 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 ##### 1.13.4 列表排序
 
-![](C:\Users\15943\Desktop\前端\vue\图片\列表排序案例.png)
+![](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E5%88%97%E8%A1%A8%E6%8E%92%E5%BA%8F%E6%A1%88%E4%BE%8B.png)
 
 ```html
 <body>
@@ -1822,7 +1822,7 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 ##### 1.14.1 问题引入
 
-![67280842644](C:\Users\15943\Desktop\前端\vue\图片\数据监视原理.png)
+![67280842644](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E6%95%B0%E6%8D%AE%E7%9B%91%E8%A7%86%E5%8E%9F%E7%90%86.png)
 
 ****
 
@@ -2028,7 +2028,7 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
   </script>
 ```
 
-![](C:\Users\15943\Desktop\前端\vue\图片\监视数组1.png)
+![](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E7%9B%91%E8%A7%86%E6%95%B0%E7%BB%841.png)
 
 > 所以我们通过 vm._data.student.hobby[0] = ‘aaa’ // 不奏效
 >
@@ -2036,7 +2036,7 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 vue 对数组无法通过 getter 和 setter 进行数据监视,而是通过 `包装`数组上常用的用于修改数组的方法来实现的。
 
-![](C:\Users\15943\Desktop\前端\vue\图片\监视数组2.png)
+![](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E7%9B%91%E8%A7%86%E6%95%B0%E7%BB%842.png)
 
 ##### 1.14.5 练习
 
