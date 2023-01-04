@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .basic {
+        width: 200px;
+        height: 100px;
+        border: 1px solid #000;
+      }
+      .red {
+        background-color: red;
+      }
+      .skyblue {
+        background-color: skyblue;
+      }
+      .pink {
+        background-color: pink;
+      }
+      .atguigu1 {
+        background-color: yellowgreen;
+      }
+      .atguigu2 {
+        font-size: 30px;
+        text-shadow: 2px 2px 10px red;
+      }
+      .atguigu3 {
+        border-radius: 20px;
+      }
+    </style>
+    <script src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <!-- 绑定class样式--字符串写法，适用于：样式的类名不确定，需要动态指定 -->
+      <div class="basic" :class="color" @click="changeColor">{{name}}</div>
+      <br /><br />
+
+      <!-- 绑定class样式--数组写法，适用于：要绑定的样式个数不确定，名字也不确定 -->
+      <div class="basic" :class="classArr">{{name}}</div>
+      <br /><br />
+
+      <!-- 绑定class样式--对象写法，适用于：要绑定的样式个数确定，名字也确定，但是要动态决定用不用 -->
+      <div class="basic" :class="classObj">{{name}}</div>
+      <br /><br />
+
+      <!-- 绑定style样式--对象写法 -->
+      <div class="basic" :style="styleObj">{{name}}</div>
+      <br /><br />
+
+      <!-- 绑定style样式--数组写法：重复的样式以后面的(styleObj2)为准
+      还可以用styleArr(在data里面以数组的形式写对象(styleObj)
+      -->
+      <div class="basic" :style="[styleObj,styleObj2]">{{name}}</div>
+      <br /><br />
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false //阻止vue在启动时生成生产提示
+    new Vue({
+      el: '#root',
+      data: {
+        name: '爱睡觉的',
+        color: 'skyblue',
+        classArr: ['atguigu1', 'atguigu2', 'atguigu3'],
+        classObj: {
+          atguigu2: false, //false不用该类
+          atguigu3: false,
+        },
+        styleObj: {
+          fontSize: '40px',
+          color: 'pink',
+        },
+        styleObj2: {
+          fontSize: '100px',
+          backgroundColor: 'orange',
+        },
+      },
+      methods: {
+        changeColor() {
+          // 点击随机切换颜色
+          const arr = ['red', 'skyblue', 'pink']
+          //  Math.random() 是(0,1] ; Math.floor() 向下取整
+          const index = Math.floor(Math.random() * 3)
+          this.color = arr[index]
+        },
+      },
+    })
+  </script>
+</html>
