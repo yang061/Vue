@@ -13,7 +13,7 @@
 
 ##### 1.1.2. vue介绍
 
-- Vue 是一套用来动态==构建用户界面==的==渐进式J==avaScript框架
+- Vue 是一套用来动态【构建用户界面】的【渐进式】JavaScript框架
   ○ 构建用户界面：把数据通过某种办法变成用户界面
   ○ 渐进式：Vue可以自底向上逐层的应用
 
@@ -27,11 +27,11 @@
 1. 遵循MVVM模式
 2. 编码简洁，体积小，运行效率高，适合移动/PC端开发
 3. 它本身只关注 UI，可以引入其它第三方库开发项目
-4. 采用==组件化==模式，提高代码复用率、且让代码更好维护
+4. 采用【组件化】模式，提高代码复用率、且让代码更好维护
 
 ![67247968774](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/2.4%20%E7%BB%84%E4%BB%B6%E5%8C%96%E6%A8%A1%E5%BC%8F)
 
-5. ==声明式==编码，让编码人员无需直接操作DOM，提高开发效率
+5. 【声明式】编码，让编码人员无需直接操作DOM，提高开发效率
 
 ![67247944158](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/2.5%E5%A3%B0%E6%98%8E%E5%BC%8F%E7%BC%96%E7%A0%81)
 
@@ -61,11 +61,11 @@
 
 #### 1.2 初识Vue
 
-1. 想让Vue工作，就必须创建一个==Vue实例==，且要传入一个配置对象
+1. 想让Vue工作，就必须创建一个【Vue实例】，且要传入一个配置对象
 
 2. root 容器里的代码依然符合html规范，只不过混入了一些特殊的Vue语法
 
-3. root 容器里的代码被称为==**Vue模板**==
+3. root 容器里的代码被称为【**Vue模板**】
 
 4. 注意区分：js表达式 和 js代码（语句）
 
@@ -85,7 +85,7 @@
      >
      > (2). for( ){ }  循环语句
 
-5. Vue 实例与容器是==一一对应==的
+5. Vue 实例与容器是【一一对应】的
 
 6. 真实开发中只有一个Vue实例，并且会配合着组件一起使用
 
@@ -141,11 +141,11 @@
 * **插值语法：**
 
 1. 功能：用于解析`标签体`内容
-2. 写法：`{{xxx}}`，xxx是==js表达式==，且可以直接读取到data中的所有属性
+2. 写法：`{{xxx}}`，xxx是【js表达式】，且可以直接读取到data中的所有属性
 * **指令语法:**
 
 1. 功能：用于解析标签（包括：标签属性、标签体内容、绑定事件…）
-2. 举例：`v-bind:href="xxx" `或 简写为 `:href="xxx"`，xxx同样要写==js表达式==，且可以直接读取到data中的所有属性(把xxx中的数据当成js表达式来看)
+2. 举例：`v-bind:href="xxx" `或 简写为 `:href="xxx"`，xxx同样要写【js表达式】，且可以直接读取到data中的所有属性(把xxx中的数据当成js表达式来看)
 3. 备注：Vue中有很多的指令，且形式都是 v-xxx，此处只是拿v-bind举例
 
 ```html
@@ -320,7 +320,7 @@ Vue中有2种数据绑定的方式：
 
 #### 1.6 MVVM模型
 
-1. M：模型(`Model`) ：对应 data 中的==数据==
+1. M：模型(`Model`) ：对应 data 中的【数据】
 2. V：视图(`View`) ：模板 (dom => 页面 =>模板)
 3. VM：视图模型(`ViewModel`) ： Vue 实例对象（相当于数据和页面的连接桥梁）
 
@@ -477,8 +477,8 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 1. 使用`v-on:xxx`或`@xxx`绑定事件，其中 xxx 是事件名
 2. 事件的回调需要配置在`methods对象`中，最终会在vm上
-3. methods中配置的函数，不要用箭头函数，否则 this 就==不是==vm了，而是window
-4. methods中配置的函数，都是被 Vue所管理的函数，this 的指向是==vm==或==组件实例对象==
+3. methods中配置的函数，不要用箭头函数，否则 this 就【不是】vm了，而是window
+4. methods中配置的函数，都是被 Vue所管理的函数，this 的指向是`vm`或`组件实例对象`
 5. `@click="demo"`和`@click="demo($event,参数)"`效果一致，但后者可以传参
 
 ```html
@@ -634,21 +634,21 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 ##### 1.8.3 键盘事件
 
-> 键盘上的每个按键都有自己的==名称==和==编码==，例如：Enter（13）。而Vue还对一些常用按键起了别名方便使用
+> 键盘上的每个按键都有自己的【名称】和【编码】，例如：Enter（13）。而Vue还对一些常用按键起了别名方便使用
 
 1. Vue中常用的按键【别名】
 
 * 回车=>`enter`
-* 删除=>`delete`(捕获“删除(==DELETE==)”和“退格(==BACKSPACE==)”键)
+* 删除=>`delete`(捕获“删除(`DELETE`)”和“退格(`BACKSPACE`)”键)
 * 退出=>`esc`
 * 空格=>`space`
-* 换行=>`tab`(特殊，必须配合==keydown事件==去使用)
+* 换行=>`tab`(特殊，必须配合`keydown事件`去使用)
 * 上=>`up`
 * 下=>`down`
 * 左=>`left`
 * 右=>`right`
 
-2. Vue未提供别名的按键，可以使用按键原始的key值去绑定，但注意要转为kebab-case（多单词==小写短横线写法== 
+2. Vue未提供别名的按键，可以使用按键原始的key值去绑定，但注意要转为kebab-case（多单词【小写短横线写法】
 
    > NumLock(num-lock) 
    >
@@ -748,7 +748,7 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 ##### 1.9.3 姓名案例（计算属性实现）
 
-* 定义：要用的属性不存在，要通过==已有属性计算==得来
+* 定义：要用的属性不存在，要通过【已有属性计算】得来
 
 * 原理：底层借助了`Objcet.defineProperty`方法提供的getter和setter
 
@@ -763,17 +763,17 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 
 
-* 优势：与methods实现相比，==内部有缓存机制==（复用），效率更高，调试方便
+* 优势：与methods实现相比，【内部有缓存机制】（复用），效率更高，调试方便
 
 * 备注：
 
-  1. 计算属性最终会出现在==vm==上，直接读取使用即可
+  1. 计算属性最终会出现在`vm`上，直接读取使用即可
 
-  2. 如果计算属性要被修改，那必须写==set函数==去响应修改，且set中要引起计算时依赖的数据发生改变（否则无意义）
+  2. 如果计算属性要被修改，那必须写【set函数】去响应修改，且set中要引起计算时依赖的数据发生改变（否则无意义）
 
      > set不是必须写的
 
-  3. 如果计算属性确定==不考虑修改==，可以使用计算属性的简写形式
+  3. 如果计算属性确定【不考虑修改】，可以使用计算属性的简写形式
 
 > 完整写法
 
@@ -924,8 +924,8 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 侦听属性watch：
 
-- 当被监视的属性`变化`时, 回调函数==自动调用==（handler）, 进行相关操作
-- 监视的属性==必须存在==，才能进行监视！既可以监视==data==，也可以监视==计算属性==
+- 当被监视的属性`变化`时, 回调函数【自动调用】（handler）, 进行相关操作
+- 监视的属性【必须存在】，才能进行监视！既可以监视`data`，也可以监视【计算属性】
 - 配置项属性`immediate:false`，改为 `true`，则初始化时调用一次 `handler(newValue,oldValue)`,相当于立即执行
 - 监视的两种写法：
   * (1).new Vue时传入`watch配置`
@@ -993,11 +993,11 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 ##### 1.10.3 深度监视
 
-* (1).Vue中的watch==默认不监测==对象内部值的改变（默认一层）
+* (1).Vue中的watch【默认不监测】对象内部值的改变（默认一层）
 
   obj:{name:’ds’,age:18} 这里的一层指的后面整个对象字面量，而不是里面的值是第一层
 
-* (2).配置`deep:true`可以监测==对象内部值==改变（多层）
+* (2).配置`deep:true`可以监测【对象内部值】改变（多层）
 
 **备注：**
 
@@ -1155,12 +1155,12 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 2. `watch`能完成的功能，`computed`不一定能完成，
 
-   > 例如：watch可以进行==异步操作==
+   > 例如：watch可以进行`异步操作 `
 
 **两个重要的小原则:**
 
-* 1.所被Vue管理的函数，**最好**写成==普通函数==，这样this的指向才是`vm `或 `组件实例对象`
-* 2.所有不被Vue所管理的函数（定时器的回调函数、ajax的回调函数等、Promise的回调函数），**最好**写成==箭头函数==，这样this的指向才是`vm` 或 `组件实例对象`
+* 1.所被Vue管理的函数，**最好**写成【普通函数】，这样this的指向才是`vm `或 `组件实例对象`
+* 2.所有不被Vue所管理的函数（定时器的回调函数、ajax的回调函数等、Promise的回调函数），**最好**写成【箭头函数】，这样this的指向才是`vm` 或 `组件实例对象`
 
 >  比如想延迟一秒显示fullName,只能用`watch`实现
 
@@ -1239,7 +1239,7 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 > 其中xxx是动态值
 
 * :style="[a,b]" 
-> 其中a,b是样式对象；==样式对象里面的属性名要是存在的一个css属性==
+> 其中a,b是样式对象；【样式对象里面的属性名要是存在的一个css属性】
 
 **代码案例**
 
@@ -1354,14 +1354,14 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
    (3).`v-else`=“表达式”
 
-2. 适用于：==切换频率较低==的场景，因为不展示的DOM元素直接被移除
+2. 适用于：【切换频率较低】的场景，因为不展示的DOM元素直接被移除
 
 3. 特点：不展示的DOM元素直接被移除
 
 4. 注意：
 
-   * `v-if`可以和`v-else-if`、`v-else`一起使用，但要求==结构不能被“打断”==
-   * `template标签`不影响结构，页面html中不会有此标签，但==只能==配合v-if，不能配合v-show
+   * `v-if`可以和`v-else-if`、`v-else`一起使用，但要求【结构不能被“打断”】
+   * `template标签`不影响结构，页面html中不会有此标签，但【只能】配合v-if，不能配合v-show
 
 5. 当条件不成立时, `v-if `的所有子节点不会解析(项目中使用)
 
@@ -1371,13 +1371,13 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
    (1).`v-show=“表达式”`
 
-2. 适用于：==切换频率较高==的场景
+2. 适用于：【切换频率较高】的场景
 
 3. 特点：不展示的DOM元素未被移除，仅仅是使用样式隐藏掉(display:none)
 
 4. 备注：使用`v-if`的时，元素可能无法获取到(因为被移除)，而使用`v-show`一定可以获取到
 
-> v-if 是实打实地==改变==dom元素，v-show 是==隐藏或显示==dom元素
+> v-if 是实打实地【改变】dom元素，v-show 是【隐藏或显示】dom元素
 
 ```html
 <!DOCTYPE html>
@@ -1445,7 +1445,7 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 2. 语法：`v-for`=“**(item, index)** `in/of` **xxx**” `:key`=**“yyy”**
 
-   > 这里key可以是index，更好的是遍历对象的==唯一标识==
+   > 这里key可以是index，更好的是遍历对象的【唯一标识】
    >
    > 如果key写的是index，前面可以不写index也能用
 
@@ -1536,7 +1536,7 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 1. `虚拟DOM`中`key`的作用：
 
-* (1).`key`是虚拟DOM对象的标识，当数据发生变化时，Vue会根据==【新数据】==生成==【新的虚拟DOM】==
+* (1).`key`是虚拟DOM对象的标识，当数据发生变化时，Vue会根据【新数据】生成【新的虚拟DOM】
 
 *  (2).随后Vue进行【新虚拟DOM】与【旧虚拟DOM】的差异比较，比较规则如下：
 
@@ -1553,17 +1553,17 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 3. 用index作为key可能会引发的问题：
 
-*   (1). 若对数据进行：逆序添加、逆序删除等==**破坏顺序操作**==:
+*   (1). 若对数据进行：逆序添加、逆序删除等【**破坏顺序操作**】:
 
-  * ①.会产生没有必要的真实DOM更新 == > 界面效果没问题, 但==效率低==。
+  * ①.会产生没有必要的真实DOM更新 == > 界面效果没问题, 但【效率低】。
 
-*   (2). 如果结构中还包含==**输入类的DOM**==：
+*   (2). 如果结构中还包含【**输入类的DOM**】：
 
-  * ①. 会产生错误DOM更新 == > 界面==有问题==。
+  * ①. 会产生错误DOM更新 == > 界面【有问题】。
 
 4. 开发中如何选择`key`?:
 
-*  (1).最好使用每条数据的**==唯一标识作为key==,** 比如id、手机号、身份证号、学号等唯一值。
+*  (1).最好使用每条数据的**【唯一标识作为key】,** 比如id、手机号、身份证号、学号等唯一值。
 *  (2).如果不存在对数据的逆序添加、逆序删除等破坏顺序操作，仅用于渲染列表用于展示，使用index作为key是没有问题的。
 
 ```html
