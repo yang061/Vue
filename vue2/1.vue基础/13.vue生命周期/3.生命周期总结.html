@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <h2 :style="{opacity}">欢迎学习vue</h2>
+      <button @click="stop">停止变换</button>
+      <button @click="opacity=1">透明度设置为1</button>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false //阻止vue在启动时生成生产提示
+    const vm = new Vue({
+      el: '#root',
+      data: {
+        opacity: 1,
+      },
+      methods: {
+        stop() {
+          this.$destroy()
+        },
+      },
+
+      //   vue完成模板解析并把【初始的】真实dom元素放入页面后(挂载完毕) 后调用mounted
+      mounted() {
+        console.log(this) //this是vue实例
+        this.timer = setInterval(() => {
+          this.opacity -= 0.01
+          if (this.opacity <= 0) {
+            this.opacity = 1
+          }
+        }, 16)
+      },
+      // 销毁必经之路，定时器如果写在stop里面，可能会因为其他原因被销毁，但是beforeDestroy是都会走的路，所以关闭定时器写在这
+      beforeDestroy() {
+        console.log('即将die')
+        clearInterval(this.timer)
+      },
+    })
+  </script>
+</html>

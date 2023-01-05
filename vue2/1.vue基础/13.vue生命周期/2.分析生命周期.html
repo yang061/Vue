@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <h2>当前的值是：{{n}}</h2>
+      <button @click="add">点我n++</button>
+      <button @click="bye">点我销毁vue实例</button>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false //阻止vue在启动时生成生产提示
+    new Vue({
+      el: '#root',
+      // template 模板范围比直接写在html上少，template中的根元素不能用template标签
+      // template: `<div>
+      // <h2>当前的值是：{{n}}</h2>
+      // <button @click="add">点我n++</button>
+      // </div>`,
+      data: {
+        n: 1,
+      },
+      methods: {
+        add() {
+          // 原生dom操作
+          console.log('add')
+          this.n++
+        },
+        bye() {
+          console.log('bye')
+          // 完全销毁一个实例，解绑了全部的指令和自定义事件
+          this.$destroy() //开发很少用
+        },
+      },
+      watch: {
+        n() {
+          console.log('n变了')
+        },
+      },
+      // TIP创建流程(数据代理和数据监视创建阶段)
+      beforeCreate() {
+        console.log('beforeCreate')
+        console.log(this) //vue实例
+      },
+      created() {
+        console.log('created')
+      },
+      // TIP挂载流程
+      // 不要在beforeMount中操作dom，不起作用
+      beforeMount() {
+        console.log('beforeMount')
+      },
+      // 重要
+      mounted() {
+        // vm.$el是真实dom
+        console.log('mounted', this.$el)
+      },
+      // TIP更新流程
+      beforeUpdate() {
+        // 该阶段数据(新)和页面(旧)不同步
+        console.log('beforeUpdate')
+      },
+      updated() {
+        // 该阶段数据和页面同步,都是新的
+        console.log('updated--')
+      },
+      // TIP销毁流程(销毁后vue实例的工作成果还在，不会直接删除页面，但是不能在操作vue实例)
+      // 重要
+      beforeDestroy() {
+        // 还能看到数据，但是不能修改，修改了不能触发更新
+        console.log('beforeDestroy', this.n)
+      },
+      destroyed() {
+        // 一般不用
+        console.log('destroyed')
+      },
+    })
+  </script>
+</html>
