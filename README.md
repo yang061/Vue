@@ -2578,3 +2578,395 @@ Vue监视数据的原理：
   </script>
 ```
 
+#### 1.18 自定义指令
+
+1. **语法：**
+
+* 局部指令：
+
+```js
+new Vue({															
+  directives:{ 
+    指令名:配置对象 
+  }   
+})
+
+new Vue({															
+  directives:{ 
+    指令名:回调函数 
+  }   
+})
+```
+
+* 全局指令：
+```js
+Vue.directive(指令名, 配置对象)
+或
+Vue.directive(指令名, 回调函数)
+
+
+Vue.directive('fbind', {
+    // 指令与元素成功绑定时（一上来）
+    bind(element, binding) {	// element就是DOM元素，binding就是要绑定的
+      element.value = binding.value
+    },
+    // 指令所在元素被插入页面时
+    inserted(element, binding) {
+      element.focus()
+    },
+    // 指令所在的模板被重新解析时（data数据改变导致模板重新解析）
+    update(element, binding) {
+      element.value = binding.value
+    }
+})
+```
+
+2. **配置对象中常用的3个回调：**
+
+- `bind`：指令与元素【成功绑定】时调用。
+- `inserted`：指令所在元素【被插入页面】时调用。
+- `update`：指令所在模板结构【被重新解析】时调用。
+- `element`就是【DOM元素】，`binding`就是【要绑定的对象】，它包含以下属性：`name`、`value`、`oldValue`、`expression`、`arg`、`modifiers`
+
+3. **备注**
+
+* 指令【定义】时不加`v-`，但【使用】时要加`v-`
+* 指令名如果是多个单词，要使用`kebab-case`【user-name】命名方式，不要用`camelCase`【驼峰命名法】命名
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 
+        需求1：定义一个v-big指令，和v-text功能类似，但会把绑定的数值放大10倍 
+        需求2：定义一个v-fbind指令，和v-bind功能类似，但可以让其所绑定的input元素默认获取焦点 
+    -->
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <h2>{{name}}</h2>
+      <h2>当前的值是:<span v-text="n"></span></h2>
+      <h2>放大10倍的值是:<span v-big="n"></span></h2>
+      <h2>放大100倍的值是:<span v-big-number="n"></span></h2>
+      <button @click="n++">点我n++</button>
+      <hr />
+      <input type="text" v-fbind:value="n" />
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false //阻止vue在启动时生成生产提示
+    // 全局指令
+    // 对象式
+    /* Vue.directive('fbind', {
+      // 指令与元素成功绑定时(一上来)
+      bind(element, binding) {
+        console.log(binding)
+        element.value = binding.value
+      },
+      // 指令所在元素被插入页面时
+      inserted(element, binding) {
+        element.focus()
+      },
+      //  指令所在的模板被重新解析时
+      update(element, binding) {
+        element.value = binding.value
+      },
+    }) */
+
+    // 全局函数式
+    Vue.directive('big', function (element, binding) {
+      console.log('big', this) //注意此处的this是window
+      element.innerText = binding.value * 100
+    })
+    new Vue({
+      el: '#root',
+      data: {
+        name: '尚硅谷',
+        n: 10,
+      },
+      //   局部指令
+      directives: {
+        // 函数式 (element:真实dom，binding：绑定对象)
+        // big函数何时被调用？ 1.指令与元素成功绑定时(一上来) 2.指令所在的模板被重新解析时
+        'big-number'(element, binding) {
+          element.innerText = binding.value * 10
+        },
+        /* big(element, binding) {
+          console.log('big', this) //注意此处的this是window
+          element.innerText = binding.value * 100
+        }, */
+        // 对象式
+        fbind: {
+          // 指令与元素成功绑定时(一上来)
+          bind(element, binding) {
+            console.log(binding)
+            element.value = binding.value
+          },
+          // 指令所在元素被插入页面时
+          inserted(element, binding) {
+            element.focus()
+          },
+          //  指令所在的模板被重新解析时
+          update(element, binding) {
+            element.value = binding.value
+          },
+        },
+      },
+    })
+  </script>
+</html>
+```
+
+
+
+#### 1.19 Vue生命周期
+
+##### 1.19.1 引出生命周期
+
+**生命周期**
+
+1. 又名**生命周期【回调函数】**、生命周期函数、生命周期钩子
+2. 是什么：Vue在关键时刻帮我们调用的一些特殊名称的函数
+3. 生命周期函数的**名字【不可更改】**，但函数的具体内容是程序员根据需求编写的
+4. 生命周期函数中的`this `指向是`vm`或`组件实例对象`
+
+```html
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <h2 :style="{opacity}">欢迎学习vue</h2>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false //阻止vue在启动时生成生产提示
+    const vm = new Vue({
+      el: '#root',
+      data: {
+        opacity: 1,
+      },
+      methods: {},
+
+      //   vue完成模板解析并把【初始的】真实dom元素放入页面后(挂载完毕) 后调用mounted
+      mounted() {
+        console.log(this) //this是vue实例
+        setInterval(() => {
+          this.opacity -= 0.01
+          if (this.opacity <= 0) {
+            this.opacity = 1
+          }
+        }, 16)
+      },
+    })
+    // 通过外部的定时器实现(不推荐)
+    /* setInterval(() => {
+      vm.opacity -= 0.01
+      if (vm.opacity <= 0) {
+        vm.opacity = 1
+      }
+    }, 16) */
+  </script>
+```
+
+##### 1.19.2 分析生命周期
+
+![](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png)
+
+> 代码
+
+```html
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <h2>当前的值是：{{n}}</h2>
+      <button @click="add">点我n++</button>
+      <button @click="bye">点我销毁vue实例</button>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false //阻止vue在启动时生成生产提示
+    new Vue({
+      el: '#root',
+      // template 模板范围比直接写在html上少，template中的根元素不能用template标签
+      // template: `<div>
+      // <h2>当前的值是：{{n}}</h2>
+      // <button @click="add">点我n++</button>
+      // </div>`,
+      data: {
+        n: 1,
+      },
+      methods: {
+        add() {
+          // 原生dom操作
+          console.log('add')
+          this.n++
+        },
+        bye() {
+          console.log('bye')
+          // 完全销毁一个实例，解绑了全部的指令和自定义事件
+          this.$destroy() //开发很少用
+        },
+      },
+      watch: {
+        n() {
+          console.log('n变了')
+        },
+      },
+      // TIP创建流程(数据代理和数据监视创建阶段)
+      beforeCreate() {
+        console.log('beforeCreate')
+        console.log(this) //vue实例
+      },
+      created() {
+        console.log('created')
+      },
+      // TIP挂载流程
+      // 不要在beforeMount中操作dom，不起作用
+      beforeMount() {
+        console.log('beforeMount')
+      },
+      // 重要
+      mounted() {
+        // vm.$el是真实dom
+        console.log('mounted', this.$el)
+      },
+      // TIP更新流程
+      beforeUpdate() {
+        // 该阶段数据(新)和页面(旧)不同步
+        console.log('beforeUpdate')
+      },
+      updated() {
+        // 该阶段数据和页面同步,都是新的
+        console.log('updated--')
+      },
+      // TIP销毁流程(销毁后vue实例的工作成果还在，不会直接删除页面，但是不能在操作vue实例)
+      // 重要
+      beforeDestroy() {
+        // 还能看到数据，但是不能修改，修改了不能触发更新
+        console.log('beforeDestroy', this.n)
+      },
+      destroyed() {
+        // 一般不用
+        console.log('destroyed')
+      },
+    })
+  </script>
+```
+
+> 解析下面的图片
+
+![](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F1.png)
+
+> ​	先判断有没有	    ` el` 这个配置项，没有就调用 `vm.$mount(el)`，如果两个都没有就一直卡着，显示的界面就是最原始的容器的界面。
+>
+> ​	有        `el`这个配置项，就进行判断有没有`template`这个配置项，没有` template` 就将`el`绑定的容器编译为 `vue `模板，来个对比图。
+
+**没编译前的：**
+
+![](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F2.png)
+
+**编译后：**
+
+![](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F3.png)
+
+**template 的作用**
+
+第一种情况，有 template：
+
+如果 `el` 绑定的容器没有任何内容，就一个空壳子，但在 Vue 实例中写了 template，就会编译解析这个 template 里的内容，生成`虚拟 DOM`，最后将 `虚拟 DOM` 转为 `真实 DOM` 插入页面（其实就可以理解为 template 替代了 `el` 绑定的容器的内容）。
+
+>  注意：template 模板范围比直接写在html上少，template中的根元素不能用template标签
+
+```js
+new Vue({
+      el: '#root',
+      // template 模板范围比直接写在html上少，template中的根元素不能用template标签
+      template: `<div>
+      <h2>当前的值是：{{n}}</h2>
+      <button @click="add">点我n++</button>
+      </div>`,
+	  data:{}   	
+    })
+```
+
+**第二种情况，没有 template：**
+
+没有 template，就编译解析 `el` 绑定的容器，生成`虚拟 DOM`，后面就顺着生命周期执行下去。
+
+##### 1.19.3 生命周期总结
+
+1. `beforeCreate`（**创建前**）：数据监测(getter和setter)和初始化事件还未开始，此时 data 的响应式追踪、event/watcher 都还没有被设置，也就是说不能访问到data、computed、watch、methods上的方法和数据。
+2. `created`（**创建后**）：实例创建完成，实例上配置的 options 包括 data、computed、watch、methods 等都配置完成，但是此时渲染得节点还未挂载到 DOM，所以不能访问到 `$el`属性。
+3. `beforeMount`（**挂载前**）：在挂载开始之前被调用，相关的render函数首次被调用。此阶段Vue开始解析模板，生成虚拟DOM存在内存中，还没有把虚拟DOM转换成真实DOM，插入页面中。所以网页不能显示解析好的内容。
+4. `mounted`（**挂载后**）：在el被新创建的 vm.$el（就是真实DOM的拷贝）替换，并挂载到实例上去之后调用（将内存中的虚拟DOM转为真实DOM，真实DOM插入页面）。此时页面中呈现的是经过Vue编译的DOM，这时在这个钩子函数中对DOM的操作可以有效，但要尽量避免。一般在这个阶段进行：开启定时器，发送网络请求，订阅消息，绑定自定义事件等等
+5. `beforeUpdate`（**更新前**）：响应式数据更新时调用，此时虽然响应式数据更新了，但是对应的真实 DOM 还没有被渲染（数据是新的，但页面是旧的，页面和数据没保持同步）。
+6. `updated`（**更新后**） ：在由于数据更改导致的虚拟DOM重新渲染和打补丁之后调用。此时 DOM 已经根据响应式数据的变化更新了。调用时，组件 DOM已经更新，所以可以执行依赖于DOM的操作。然而在大多数情况下，应该避免在此期间更改状态，因为这可能会导致更新无限循环。该钩子在服务器端渲染期间不被调用。
+7. `beforeDestroy`（**销毁前**）：实例销毁之前调用。这一步，实例仍然完全可用，this 仍能获取到实例。在这个阶段一般进行关闭定时器，取消订阅消息，解绑自定义事件。
+8. `destroyed`（**销毁后**）：实例销毁后调用，调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。该钩子在服务端渲染期间不被调用。
+
+
+9. **常用的生命周期钩子**
+   * `mounted`发送ajax请求、启动定时器、绑定自定义事件、订阅消息等初始化操作
+   * beforeDestroy清除定时器、解绑自定义事件、取消订阅消息等收尾工作
+10. 关于`销毁Vue`实例
+    * 销毁后借助Vue开发者工具看不到任何信息
+    * 销毁后自定义事件会失效，但【原生DOM】事件依然有效
+    * 一般不会在`beforeDestroy`操作【数据】，因为即便操作数据，也不会再触发更新流程了
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <h2 :style="{opacity}">欢迎学习vue</h2>
+      <button @click="stop">停止变换</button>
+      <button @click="opacity=1">透明度设置为1</button>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false //阻止vue在启动时生成生产提示
+    const vm = new Vue({
+      el: '#root',
+      data: {
+        opacity: 1,
+      },
+      methods: {
+        stop() {
+          this.$destroy()
+        },
+      },
+
+      //   vue完成模板解析并把【初始的】真实dom元素放入页面后(挂载完毕) 后调用mounted
+      mounted() {
+        console.log(this) //this是vue实例
+        this.timer = setInterval(() => {
+          this.opacity -= 0.01
+          if (this.opacity <= 0) {
+            this.opacity = 1
+          }
+        }, 16)
+      },
+      // 销毁必经之路，定时器如果写在stop里面，可能会因为其他原因被销毁，但是beforeDestroy是都会走的路，所以关闭定时器写在这
+      beforeDestroy() {
+        console.log('即将die')
+        clearInterval(this.timer)
+      },
+    })
+  </script>
+</html>
+```
+
+
