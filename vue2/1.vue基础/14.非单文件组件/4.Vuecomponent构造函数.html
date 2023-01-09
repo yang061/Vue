@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <School></School>
+      <hello></hello>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false //阻止vue在启动时生成生产提示
+
+    // 创建School组件
+    const School = Vue.extend({
+      template: `
+      <div>
+        <h2>学校名称：{{name}}</h2>
+        <h2>学校地址：{{address}}</h2>
+        <button @click="showName"></button>
+      </div>
+      `,
+      data() {
+        return {
+          name: '尚硅谷',
+          address: '成都',
+        }
+      },
+      methods: {
+        showName() {
+          alert(this.name)
+          console.log('showName', this) //VueComponent实例对象 vc
+        },
+      },
+    })
+
+    // 创建test组件
+    const test = Vue.extend({
+      template: `
+        <h2>学校名称：{{name}}</h2>   
+      `,
+      data() {
+        return {
+          name: '狗',
+        }
+      },
+    })
+
+    // 创建hello组件
+    const hello = Vue.extend({
+      template: `
+      <div>
+        <h2>学校名称：{{name}}</h2>   
+        <test></test>
+      </div>
+      `,
+      data() {
+        return {
+          name: '小明',
+        }
+      },
+      components: {
+        test,
+      },
+    })
+    console.log(School)
+    console.log(School === hello) //false
+    const vm = new Vue({
+      el: '#root',
+      data: {},
+      components: {
+        School,
+        hello,
+      },
+    })
+  </script>
+</html>

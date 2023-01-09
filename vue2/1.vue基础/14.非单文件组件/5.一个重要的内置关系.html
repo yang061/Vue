@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <School></School>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false //阻止vue在启动时生成生产提示
+    Vue.prototype.x = 99
+    // 创建School组件
+    const School = Vue.extend({
+      template: `
+      <div>
+        <h2>学校名称：{{name}}</h2>
+        <h2>学校地址：{{address}}</h2>
+        <button @click="showX">showX</button>
+      </div>
+      `,
+      data() {
+        return {
+          name: '尚硅谷',
+          address: '成都',
+        }
+      },
+      methods: {
+        showX() {
+          console.log(this.x) //99
+        },
+      },
+    })
+    new Vue({
+      el: '#root',
+
+      components: {
+        School,
+      },
+    })
+    console.log(School.prototype.__proto__ === Vue.prototype) //true
+
+    // 原型复习
+    /* // 定义一个构造函数
+    function Demo() {
+      this.a = 1
+      this.b = 2
+    }
+    // 创建一个Demo的实例对象
+    const d = new Demo()
+
+    console.log(Demo.prototype) //显示原型对象(只有函数才有，实例没有)
+    // 实例的隐式原型属性永远指向自己缔造者的原型对象
+    console.log(Demo.__proto__) //隐式原型对象 (是一个东西，都是原型对象)
+
+    // 程序员通过原型属性操作原型对象，追加一个x属性，值为99
+    Demo.prototype.x = 99
+    console.log('@', d) //Demo {a: 1, b: 2} Demo是为了表示{a: 1, b: 2} 是Demo构造函数创建的 */
+  </script>
+</html>
