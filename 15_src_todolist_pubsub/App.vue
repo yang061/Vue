@@ -42,14 +42,6 @@ export default {
         }
        })
       },
-      // 更新todo
-      updateTodo(id,newVale){
-       this.todos.forEach((todo)=>{
-        if(todo.id ==id){
-          todo.title = newVale
-        }
-       })
-      },
       // 删除todo
       deleteTodo(_,id){
        this.todos = this.todos.filter((todo)=> todo.id !== id) 
@@ -88,16 +80,12 @@ export default {
       // 消息订阅
       // 因为会收到两个参数，所以函数要使用【_】占位
       this.pubId = PubSub.subscribe('deleteTodo',this.deleteTodo)
-
-      // 更新数据
-      this.$bus.$on('updateTodo',this.updateTodo)
     },
     beforeDestroy(){
       // 销毁前解绑事件
       this.$bus.$off(['checkTodo'])
       // this.$bus.$off(['deleteTodo'])
       PubSub.unsubscribe(this.pubId)
-      this.$bus.$off('updateTodo')
     }
 }
 </script>
@@ -111,24 +99,13 @@ export default {
   li{
   list-style: none;
  }
-  .btn{
+  button{
     padding:0 10px ;
     height: 30px;
     border-radius: 5px;
-    
-  }
-  .btn-danger{
     color:#fff;
     background-color: rgb(182, 42, 42);
-    border: 1px solid rgb(180, 47, 47);
   }
-  .btn-edit{
-    margin-right: 5px;
-    background-color: skyblue;
-    color: #fff;
-    border: 1px solid rgb(114, 175, 199);
-  }
-
   .banner{
     width: 400px;
     margin: 0px auto;
