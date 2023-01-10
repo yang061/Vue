@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <!-- 使用组件 -->
+      <School></School>
+      <!-- 单标签自闭合不在脚手架环境只显示一个 -->
+      <School />
+      <School />
+      <School />
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false //阻止vue在启动时生成生产提示
+
+    // 创建组件
+    const s = Vue.extend({
+      name: 'atguigu', //vue开发者工具显示的名字
+      template: `
+      <div>
+        <h2>学校名称：{{name}}</h2>  
+        <h2>学校地址：{{address}}</h2>  
+      </div>
+      `,
+      data() {
+        return {
+          name: '尚硅谷',
+          address: '成都',
+        }
+      },
+    })
+    new Vue({
+      el: '#root',
+      data: {
+        msg: '欢迎学Vue',
+      },
+      // 注册组件
+      components: {
+        School: s, //组件名为单个单词
+        // 'my-school': s, //组件名为多个单词
+        // mySchool: s, //组件名为多个单词,脚手架里面使用
+      },
+    })
+  </script>
+</html>
