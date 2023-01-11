@@ -29,17 +29,17 @@
 3. 它本身只关注 UI，可以引入其它第三方库开发项目
 4. 采用【组件化】模式，提高代码复用率、且让代码更好维护
 
-![67247968774](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/2.4%20%E7%BB%84%E4%BB%B6%E5%8C%96%E6%A8%A1%E5%BC%8F)
+![67247968774](Vue全家桶.assets/2.4 组件化模式)
 
 5. 【声明式】编码，让编码人员无需直接操作DOM，提高开发效率
 
-![67247944158](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/2.5%E5%A3%B0%E6%98%8E%E5%BC%8F%E7%BC%96%E7%A0%81)
+![67247944158](Vue全家桶.assets/2.5声明式编码)
 
 6. 使用虚拟DOM 和 Diff算法，尽量复用DOM节点
 
-![67247987614](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/2.6%20%E8%99%9A%E6%8B%9Fdom%E5%92%8Cdis)
+![67247944158](Vue全家桶.assets/2.5声明式编码)
 
-![67248012143](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/2.6%20%E8%99%9A%E6%8B%9Fdom%E5%92%8Cdiff)
+![67248012143](Vue全家桶.assets/2.6 虚拟dom和diff)
 
 ##### 1.1.4. 与其它 JS 框架的关联
 
@@ -461,7 +461,7 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
    * 为每一个添加到vm上的属性，都指定一个 `getter`,`setter`
    * 在`getter`,`setter`内部去操作（读/写）data中对应的属性
 
-![image-20220627120432752](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E6%95%B0%E6%8D%AE%E4%BB%A3%E7%90%86)
+![image-20220627120432752](Vue全家桶.assets/数据代理)
 
 4.解读
 
@@ -1620,11 +1620,11 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 > index作为key
 
-![67273734678](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/1.13.2%20key%E4%BD%9C%E7%94%A8%E4%B8%8E%E5%8E%9F%E7%90%86)
+![image-20220627120432752](Vue全家桶.assets/数据代理)
 
 > id作为key
 
-![67273756803](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/id%E4%BD%9C%E4%B8%BAkey)
+![67273756803](Vue全家桶.assets/id作为key)
 
 ##### 1.13.3 列表过滤
 
@@ -1752,7 +1752,7 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 ##### 1.13.4 列表排序
 
-![](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E5%88%97%E8%A1%A8%E6%8E%92%E5%BA%8F%E6%A1%88%E4%BE%8B.png)
+![](Vue全家桶.assets/列表排序案例.png)
 
 ```html
 <body>
@@ -1822,7 +1822,7 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 ##### 1.14.1 问题引入
 
-![67280842644](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E6%95%B0%E6%8D%AE%E7%9B%91%E8%A7%86%E5%8E%9F%E7%90%86.png)
+![67280842644](Vue全家桶.assets/数据监视原理.png)
 
 ****
 
@@ -2028,7 +2028,7 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
   </script>
 ```
 
-![](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E7%9B%91%E8%A7%86%E6%95%B0%E7%BB%841.png)
+![](Vue全家桶.assets/监视数组1.png)
 
 > 所以我们通过 vm._data.student.hobby[0] = ‘aaa’ // 不奏效
 >
@@ -2036,7 +2036,7 @@ https://zh.javascript.info/property-[accessors](https://so.csdn.net/so/search?q=
 
 vue 对数组无法通过 getter 和 setter 进行数据监视,而是通过 `包装`数组上常用的用于修改数组的方法来实现的。
 
-![](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E7%9B%91%E8%A7%86%E6%95%B0%E7%BB%842.png)
+![](Vue全家桶.assets/监视数组2.png)
 
 ##### 1.14.5 练习
 
@@ -2290,8 +2290,7 @@ Vue监视数据的原理：
 </script>
 ```
 
-![](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E6%94%B6%E9%9B%86%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE.png)
-
+![](Vue全家桶.assets/收集表单数据.png)
 * 备注
 
 > v-model的三个修饰符：
@@ -2435,7 +2434,7 @@ Vue监视数据的原理：
 
 **cookie简略图示**
 
-![67283888845](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/cookie%E7%AE%80%E7%95%A5%E5%9B%BE%E7%A4%BA1)
+![](Vue全家桶.assets/收集表单数据.png)
 
 > 每个浏览器的cookie是浏览器特有的，不能跨浏览器读取
 >
@@ -2775,7 +2774,7 @@ Vue.directive('fbind', {
 
 ##### 1.19.2 分析生命周期
 
-![](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png)
+![](Vue全家桶.assets/生命周期.png)
 
 > 代码
 
@@ -2859,8 +2858,7 @@ Vue.directive('fbind', {
 ```
 
 > 解析下面的图片
-
-![](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F1.png)
+![](Vue全家桶.assets/生命周期1.png)
 
 > ​	先判断有没有	    ` el` 这个配置项，没有就调用 `vm.$mount(el)`，如果两个都没有就一直卡着，显示的界面就是最原始的容器的界面。
 >
@@ -2868,11 +2866,10 @@ Vue.directive('fbind', {
 
 **没编译前的：**
 
-![](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F2.png)
+![](Vue全家桶.assets/生命周期2.png)
 
 **编译后：**
-
-![](https://github.com/yang061/Vue/blob/main/readmeImages/vue2/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F3.png)
+![](Vue全家桶.assets/生命周期2.png)
 
 **template 的作用**
 
