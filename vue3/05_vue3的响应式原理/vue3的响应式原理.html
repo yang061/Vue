@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 源数据
+      let person = {
+        name: '张三',
+        age: 18,
+      }
+
+      //   模拟Vue2中实现响应式
+      //   #region
+      /*  let p = {}
+      Object.defineProperty(p, 'name', {
+        configurable: true, //可配置的
+        get() {
+          //有人读取name时调用
+          return person.name
+        },
+        set(value) {
+          //有人修改name时调用
+          console.log('有人修改了name属性,我要更新页面')
+          person.name = value
+        },
+      })
+      Object.defineProperty(p, 'age', {
+        get() {
+          //有人读取age时调用
+          return person.age
+        },
+        set(value) {
+          //有人修改age时调用
+          console.log('有人修改了age属性,我要更新页面')
+          person.age = value
+        },
+      }) */
+      // #endregion
+
+      // 模拟Vue3中的响应式
+      //   Proxy,让p去映射一个对象
+      //   #region
+      const p = new Proxy(person, {
+        // target:源对象(person) propName：属性名
+        // 有人读取p的某个属性时调用
+        get(target, propName) {
+          console.log(`有人读取了p身上的${propName}`)
+          return Reflect.get(target, propName)
+        },
+        // 有人修改p的某个属性时调用，或给p追加某个属性时调用
+        set(target, propName, value) {
+          console.log(`有人修改了p身上的${propName},我去更新页面了`)
+          Reflect.set(target, propName, value)
+        },
+        // 有人删除p的某个属性时调用
+        deleteProperty(target, propName) {
+          console.log(`有人删除了p身上的${propName},我去更新页面了`)
+          return Reflect.defineProperty(target, propName)
+        },
+      })
+      //   #endregion
+
+      let obj = {
+        a: 1,
+        b: 2,
+      }
+      //   Object.defineProperty不能重复定义一个属性
+      /* Object.defineProperty(obj, 'c', {
+        get() {
+          return 3
+        },
+      })
+      Object.defineProperty(obj, 'c', {
+        get() {
+          return 4
+        },
+      }) */
+      //   框架里面需要实时能够观察错误，不用写那么多的try...catch
+      /*  const x1 = Reflect.defineProperty(obj, 'c', {
+        get() {
+          return 3
+        },
+      })
+      console.log(x1) //true
+      const x2 = Reflect.defineProperty(obj, 'c', {
+        get() {
+          return 4
+        },
+      })
+      if(x2){
+         console.log(成功)
+      }else{
+         console.log(失败)
+      }
+      console.log(x2) //false */
+    </script>
+  </body>
+</html>
