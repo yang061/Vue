@@ -7907,7 +7907,7 @@ vite官网：https://vitejs.cn
   - 真正的按需编译，不再等待整个应用编译完成。
 - 传统构建 与 vite构建对比图
 
-![](Vue全家桶.assets/传统构建 与 vite构建对比图.png)
+![](Vue全家桶.assets/传统构建与vite构建对比图.png)
 
 ```bash
 ## 创建工程
